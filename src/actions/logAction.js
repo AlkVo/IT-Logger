@@ -9,13 +9,13 @@ export const getLogs = () => async (dispatch) => {
     const data = await res.json();
 
     dispatch({
-      types: GET_LOGS,
+      type: GET_LOGS,
       payload: data,
     });
   } catch (error) {
     dispatch({
       type: LOGS_ERROR,
-      payload: error.response.data,
+      payload: error.response.statusText,
     });
   }
 };
