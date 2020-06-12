@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { connect } from 'react-redux';
+import { addTechs } from '../../actions/techAction';
+import PropTypes from 'prop-types';
 
-const AddTechModal = () => {
+const AddTechModal = ({ addTechs }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -10,6 +13,13 @@ const AddTechModal = () => {
       M.toast({ html: '请输入姓和名' });
     } else {
       console.log(firstName, lastName);
+
+      addTechs({
+        firstName,
+        lastName,
+      });
+
+      M.toast({ html: `${firstName} ${lastName} 已被添加` });
 
       //清除输入的内容
       setFirstName('');
@@ -61,4 +71,7 @@ const AddTechModal = () => {
   );
 };
 
-export default AddTechModal;
+AddTechModal.protoTypes = {
+  addTechs: PropTypes.func.isRequired,
+};
+export default connect(null, { addTechs })(AddTechModal);
